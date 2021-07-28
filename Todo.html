@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+    <link rel="stylesheet" href="./Materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="./Materialize/fonts/material-icons.css">
+    <link rel="Manifest" href="./manifest.json">
+    <script src="./Materialize/js/materialize.min.js"></script>
+
+    <meta name="theme-color" content="royalblue">
+
+
+    <style>
+        #todo-item{
+            height: 53px;
+            /* border: 2px solid orange; */
+            /* margin:  20px 0px 20px 0px; */
+            background: white;
+            border-radius: 10px;
+            padding-left: 10px;
+            margin: 0 0 0 0;
+        }
+
+        #tasks{
+            /* border: 2px solid black; */
+            padding: 10px;
+        }
+        /* #task{
+            background: blue;
+            color: red;
+        } */
+        [type="checkbox"]+span:not(.lever):before, [type="checkbox"]:not(.filled-in)+span:not(.lever):after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 18px;
+            z-index: 0;
+            border: 2px solid navy;
+            border-radius: 4px;
+            margin-top: 3px;
+            -webkit-transition: .2s;
+            transition: .2s;
+        }
+        .my-section{
+            padding: 10px 10px 0px 10px;
+            /* padding: 20px; */
+            margin: 10px;
+            border-radius: 10px;
+            transition: all 1s;
+            /* width: 100%; */
+            /* border: 1px solid navy; */
+            /* background: orange; */
+        }
+        /* .my-section:hover{
+            background:red;
+            color: white
+        } */
+        .button-curved{
+            /* margin: 2px 0px 3px 0px; */
+            border-radius: 10px;
+        }
+        #buttons{
+            margin-bottom: 30px;
+        }
+        #task-span{
+            font-size:large;
+            /* background: green; */
+            color: navy;
+            /* padding-right: 10px; */
+        }
+        main{
+            /* border-top-left-radius: 40px; */
+            margin-top: -50px;
+            background: url(./bkg.png);
+            background-size: 10%;
+            
+            /* position: fixed; */
+        }
+        nav{
+            /* height: 200px; */
+            height: 125px;
+            box-shadow: none;
+            /* background: red; */
+        }
+        #spacing{
+           height: 75px;
+        }
+        #curve{
+            
+            border-top-left-radius: 40px;
+            height: 50px;
+            background: url(./bkg.png);
+            background-size: 100%;
+            width: 40px;
+        }
+        .task-time{
+            /* margin-left: 38px; */
+            text-align: center;
+            font-size: small;
+            /* height: 10px; */
+            /* font-weight:5; */
+            /* border: 3px solid black; */
+            color:orange;
+            /* background: red; */
+        }
+        /* .nav-wrapper{
+            background: url(./bkg.png);
+            background-size: 100%;
+        } */
+        body{
+            background: url(./bkg.png);
+            background-size: 10%;
+            margin-bottom: 80px;
+        }
+        .footer-fixed{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding-top: 10px;
+            /* padding-bottom: -10px; */
+        }
+        .footer-curve{
+            border-bottom-left-radius: 50px;
+            background: url(./bkg.png);
+            background-size: 100%;
+            /* border-radius: 30px; */
+            width: 40px;
+            height: 100%;
+            margin-bottom: 84px;
+            
+            /* margin-left: 90%; */
+        }
+        .curve-container{
+            /* background: red; */
+            height: 50px;
+            margin-bottom: 83px;
+            width: 40px;
+            /* margin-left: 90%; */
+        }
+        .top-curve-container{
+            width: 40px;
+            height: 50px;
+            position: fixed;
+            top: 125px;
+        }
+      
+        .sidenav-section{
+            padding: 25px;
+        }
+        table, tr, td{
+            border: none;
+            padding: 0px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .visual{
+            opacity: 1 !important;
+            border-radius: 10px;
+        }
+        .disappear{
+            opacity: 0 !important;
+        }
+        .date-section{
+
+        }
+        .input-and-button-row{
+            /* padding-bottom: -30px; */
+            /* background: red; */
+            margin-bottom: 12px;
+        }
+        .my-row{
+            margin: 0 auto;
+            /* padding: 0 30px 0 30px; */
+            width: 70%;
+            color: silver;
+            /* background: green;         */
+        }
+    
+    </style>
+</head>
+
+<body class="white">
+    <div class="navbar-fixed">
+        
+        <nav class="nav-wrapper indigo darken-1">
+            <div class="date-section center  container">
+                <div class="left col s3" id="task-count">1 Task</div>
+                <span class="col s6" id="date"><h5></h5></span>
+                <i class="material-icons right col s2">timer</i>
+            </div>
+            <div class="row container input-and-button-row">
+                
+                        <button class="btn-large pink white-text col s3 button-curved " id="add">
+                            <!-- <i class="material-icons prefix">add</i> -->
+                            <span><b>Add</b></span>
+                        </button>
+      
+                <div class=" col s9">
+                    <input type="text" id="todo-item" placeholder="Enter your task" class="">
+                </div>
+            </div>
+            
+            <div class="top-curve-container indigo darken-1">
+                <div class="white "  id="curve">
+
+                </div>
+            </div>
+        </nav>
+        
+    </div>
+    <div id="spacing" class="">
+
+    </div>
+    <main class="white container ">
+        <!-- <h4 class="center" id="title">Schedule arranger</h4> -->
+        <!-- <i class="material-icons">book</i> -->
+        
+        
+        <div id="tasks" >
+            <ul id="task-list" class="">
+                <li class="white lighten-4 my-section z-depth-1" >
+                    <label for="task" >
+                        <input type="checkbox" id="task">
+                        <span id="task-span">Go to gym</span>                       
+                    </label>
+                    <div class="row my-row ">
+                        <div class="col s5">
+                            <input class="timepicker task-time"/>
+
+                        </div>
+                        <!-- <input  class="datepicker"> -->
+                        <div class="col s2 center">
+                            <p>to</p>
+                        </div>
+                        <div class="col s5">
+                            <input class="timepicker task-time "></input>
+
+                        </div>
+                    </div>
+                </li>
+
+                <!-- <li class="my-section orange lighten-2">
+                    <label for="task">
+                        <input type="checkbox" id="task">
+                        <span>Go to gym</span>
+                    </label>
+                </li> -->
+            </ul>
+        </div>
+    </main>
+
+    <div class="footer-fixed curve-container indigo darken-1">
+        <div class="footer-fixed footer-curve white">
+
+        </div>
+    </div>
+    
+    <!-- The page footer -->
+    <div class="footer-fixed indigo darken-1">
+
+        <footer class="row container">
+            <table>
+                <tr>
+                    <td> 
+                        <a class="btn-large button-curved modal-trigger"
+                        href="#terms">clear</a>
+                    </td>
+                    <td class=""> 
+                        <button class="btn-floating blue sidenav-trigger"
+                        data-target="mobile-menu">
+                            <i class="material-icons">info</i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn-large button-curved" id="remove">remove</button>    
+                    </td>
+                </tr>
+            </table>
+            
+                <!-- <div class="col  left" >
+                    <a class="btn-large button-curved modal-trigger"
+                    href="#terms">clear</a>
+                </div>
+                <div class=" col   center">
+                    <button class="btn-floating blue sidenav-trigger"
+                    data-target="mobile-menu">
+                        <i class="material-icons">info</i>
+                    </button>
+                </div>
+                <div class=" col  right" id="remove">
+                    <button class="btn-large button-curved ">sweep</button>
+                </div> -->
+            
+        </footer>
+    </div>
+
+    <!-- The sidenav section of the page -->
+    <div class="sidenav sidenav-section blue lighten-4" id="mobile-menu">
+        <h5>About</h5>
+        <hr>
+        <!-- <p class="flow-text brown-text">
+            This is a test (beta) version of this app, 
+            suggestions and constructive criticism are
+            warmly welcome. Thanks in anticipation.
+        </p> -->
+        <p class="flow-text brown-text">
+            This is a basic Todo project based on basic DOM manipulation
+            using Javascript, and a little styling using Materialize.CSS
+        </p>
+        <hr>
+        <h5>Coming Soon</h5>
+        <ul class="blue -text">
+            <li class=" container">
+                <i class="material-icons ">lock</i>
+                    <span class="">Dark Mode</span>
+            </li>
+            <li class="container"><i class="material-icons">lock</i>Utility Calculator</li>
+        </ul>
+        <hr>
+        <div class="sidenav-footer container white-text">
+            <div class="">
+                <div class="red-text">
+                    <i class="material-icons prefix ">mail</i>
+                    <span class="right">onyeukwuhycient@gmail.com</span>
+                </div>
+                
+                <div class="red-text">
+                    <i class="material-icons">phone</i>
+                    <span class="right">+2348102693805</span>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        
+    </div>
+
+    <!-- The clear button page modal -->
+    <div class="modal blue lighten-4" id="terms">
+        <div class="">
+            <div class="modal-content container">
+                <h6>Do you want to clear all items?</h6>
+            </div>
+            <!-- <hr> -->
+            <div class="modal-footer blue lighten-4">
+                <button class="btn-large modal-close blue" id="clear">yes</button>
+                <button class="btn-large right modal-close">no</button>
+            </div>
+                
+        </div>
+        
+    </div>
+
+</body>
+
+
+
+
+<script src="./Todo.js"></script>
+
+<script src="./app.js"></script>
+<script src="./sw.js"></script>
+</html>
